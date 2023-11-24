@@ -1,7 +1,8 @@
 import express from 'express'
 import {Agenda} from 'agenda'
 import email from './mail/nodemailer.js'
-
+import * as dotenv from 'dotenv' 
+dotenv.config()
 
 const port = process.env.PORT || 8000
 
@@ -15,17 +16,23 @@ app.use(express.json())
 app.disable('x-powered-by');
 
 
-// LUfOTarSzCLuvucu
-
-// mongodb+srv://tamjid:<password>@schedule.eaawjpi.mongodb.net/?retryWrites=true&w=majority
+const mongodb = process.env.MONGO_URI
 
 // Connect to MongoDB
-const agenda = new Agenda({ db: { address: 'mongodb+srv://tamjid:LUfOTarSzCLuvucu@schedule.eaawjpi.mongodb.net/agendaDB?retryWrites=true&w=majority' } });
+const agenda = new Agenda({ db: { address:  mongodb} });
 
 //here is main code
 agenda.define('sendEmail', async (job) => {
 
-    email('nishitaislam2075@gmail.com', 'ogwintllofwbpahb')
+    email('nishitaislam2075@gmail.com', process.env.NISHITAISLAM2075)
+    email('kona2075@gmail.com', process.env.KONA2075)
+    email('tamjidahmed80@gmail.com', process.env.TAMJIDAHMED80 )
+    email('imemonkhan0@gmail.com', process.env.IMEMONKHAN0)
+    email('tamjida387@gmail.com', process.env.TAMJIDA387)
+    email('hometv121121@gmail.com', process.env.HOMETV121121)
+    email('atamjid327@gmail.com', process.env.ATAMJID327)
+    email('ahmedtamjid67@gmail.com', process.env.AHMEDTAMJID67)
+    email('ahmedtamjid245@gmail.com', process.env.AHMEDTAMJID245)
 
 
 

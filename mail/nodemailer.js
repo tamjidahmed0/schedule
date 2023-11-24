@@ -17,14 +17,13 @@ const transporter = nodemailer.createTransport({
     from: `yearly <${user}>`,
     to: 'tamjidahmed644@gmail.com',
     subject: 'Monthly Email',
-    text: `This is your Monthly email reminder! 
-    Date: ${new Date()} and Email is ${user}`,
+    text: `This is your Monthly email reminder! Monthly email sent Bangladesh Standard Time (BST) in : ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })} and Email is ${user}`,
   };
 
   await transporter.sendMail(mailOptions);
 
 
-  console.log(`Monthly email sent at: ${new Date()} and Email is : ${user}`, );
+  console.log(`Monthly email sent Bangladesh Standard Time (BST) in : ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })} and Email is : ${user}`, );
 
 
 } catch (error) {
