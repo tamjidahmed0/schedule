@@ -40,7 +40,7 @@ agenda.define('sendEmail', async (job) => {
 
 
   await agenda.start();
-  await agenda.every('1 minutes', 'sendEmail');
+  await agenda.every('15 days', 'sendEmail');
 
 
 
