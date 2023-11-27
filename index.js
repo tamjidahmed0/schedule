@@ -2,6 +2,9 @@ import express from 'express'
 import {Agenda} from 'agenda'
 import email from './mail/nodemailer.js'
 import * as dotenv from 'dotenv' 
+import axios from 'axios'
+
+
 dotenv.config()
 
 const port = process.env.PORT || 8000
@@ -17,6 +20,32 @@ app.disable('x-powered-by');
 
 
 const mongodb = process.env.MONGO_URI
+const URL = process.env.URL
+
+
+const fetchData = async () => {
+  try {
+    const response = await axios.get(URL);
+    console.log('response', response.data);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+app.get('/', async (req, res) => {
+  try {
+    res.status(201).send({ Request: "HTTP request send success", Time: `Bangladesh standard time ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })}` });
+    
+    
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
+
+ 
 
 // Connect to MongoDB
 const agenda = new Agenda({ db: { address:  mongodb} });
@@ -37,10 +66,22 @@ agenda.define('sendEmail', async (job) => {
 
 
   });
+  agenda.define('sendRequest', async (job)=>{
+    await fetchData();
+  })
+
+
+
+
+
+
 
 
   await agenda.start();
   await agenda.every('1 day', 'sendEmail');
+
+await agenda.every('1 minute', 'sendRequest');
+
 
 
 
